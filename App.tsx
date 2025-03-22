@@ -40,7 +40,7 @@ const App = () => {
             style={styles.logo}
             resizeMode="contain"
           />
-          <Text style={styles.appName}>Uygulama Adı</Text>
+          <Text style={styles.appName}>Uygulama Adı : Emin</Text>
         </View>
 
         <View style={styles.formContainer}>
