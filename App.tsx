@@ -78,7 +78,7 @@ const App = () => {
           </View>
 
           <TouchableOpacity style={styles.forgotPassword}>
-            <Text style={styles.forgotPasswordText}>Şifremi unttum</Text>
+            <Text style={styles.forgotPasswordText}>Şifremi unuttum</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
