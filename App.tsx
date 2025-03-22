@@ -42,7 +42,7 @@ function Section({children, title}: SectionProps): React.JSX.Element {
         {title}
       </Text>
       <Text
-        style={[
+        style={[sdsd
           styles.sectionDescription,
           {
             color: isDarkMode ? Colors.light : Colors.dark,
@@ -91,7 +91,7 @@ function App(): React.JSX.Element {
           }}>
           <Section title="Step One">
             Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
+            screen22 and then come back to see your edits.
           </Section>
           <Section title="See Your Changes">
             <ReloadInstructions />
