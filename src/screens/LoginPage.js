@@ -66,8 +66,8 @@ const LoginScreen = () => {
             <Text style={styles.inputLabel}>Şifre</Text>
             <TextInput
               style={styles.input}
-              placeholder="beler"
-              placeholderTextColor="#888"
+             placeholder="Şifre Giriniz"
+            placeholderTextColor="#555"
               value={password}
               onChangeText={setPassword}
               secureTextEntry
