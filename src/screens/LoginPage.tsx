@@ -11,21 +11,30 @@ import {
   ScrollView,
 } from 'react-native';
 
-const LoginScreen = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+// Basit navigasyon prop tipini tanımlama
+type NavigationProp = {
+  navigate: (screenName: string) => void;
+};
 
-  const handleLogin = () => {
+type Props = {
+  navigation: NavigationProp;
+};
+
+const LoginScreen: React.FC<Props> = ({ navigation }) => {
+  const [username, setUsername] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const handleLogin = (): void => {
     console.log('Giriş yapılıyor:', username, password);
     // Giriş işlemleri burada yapılacak
   };
 
-  const handleRegister = () => {
+  const handleRegister = (): void => {
     console.log('Kayıt ekranına yönlendiriliyor');
-    // Kayıt ekranına yönlendirme işlemi
+    navigation.navigate('Signup');
   };
 
-  const handleForgotPassword = () => {
+  const handleForgotPassword = (): void => {
     console.log('Şifremi unuttum ekranına yönlendiriliyor');
     // Şifremi unuttum ekranına yönlendirme işlemi
   };
@@ -37,7 +46,7 @@ const LoginScreen = () => {
     >
       <ScrollView 
         contentContainerStyle={styles.scrollContainer}
-        style={{backgroundColor: '#ffffff'}} // Ek olarak ScrollView'a da beyaz arka plan eklendi
+        style={{backgroundColor: '#ffffff'}}
       >
         <View style={styles.logoContainer}>
           <Image
@@ -51,7 +60,7 @@ const LoginScreen = () => {
 
         <View style={styles.formContainer}>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Giriniz</Text>
+            <Text style={styles.inputLabel}>Kullanıcı Adı</Text>
             <TextInput
               style={styles.input}
               placeholder="E-posta veya kullanıcı adınızı girin"
@@ -66,7 +75,7 @@ const LoginScreen = () => {
             <Text style={styles.inputLabel}>Şifre</Text>
             <TextInput
               style={styles.input}
-              placeholder="beler"
+              placeholder="Şifrenizi girin"
               placeholderTextColor="#888"
               value={password}
               onChangeText={setPassword}
@@ -115,11 +124,11 @@ const LoginScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff', // Beyaz arka plan
+    backgroundColor: '#ffffff',
   },
   scrollContainer: {
     flexGrow: 1,
-    backgroundColor: '#ffffff', // Beyaz arka plan
+    backgroundColor: '#ffffff',
   },
   logoContainer: {
     alignItems: 'center',
@@ -149,65 +158,65 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     marginBottom: 20,
-    alignItems: 'center', // Yazıları ortala
+    alignItems: 'center',
   },
   inputLabel: {
     fontSize: 16,
     marginBottom: 8,
     color: '#333',
     fontWeight: '500',
-    textAlign: 'center', // Yazıyı ortala
+    textAlign: 'center',
   },
   input: {
     backgroundColor: '#FFFFFF',
-    borderRadius: 25, // Daha kavisli kenarlar
-    borderWidth: 2, // Daha belirgin çerçeve
-    borderColor: '#D8BFD8', // Daha belirgin mor çerçeve rengi
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: '#D8BFD8',
     paddingHorizontal: 15,
     paddingVertical: 12,
     fontSize: 16,
-    width: '100%', // Tam genişlik
-    textAlign: 'center', // İçeriği ortala
+    width: '100%',
+    textAlign: 'center',
   },
   loginButton: {
-    backgroundColor: '#FFFFFF', // Beyaz buton
-    borderRadius: 25, // Kavisli kenarlar
+    backgroundColor: '#FFFFFF',
+    borderRadius: 25,
     paddingVertical: 15,
     alignItems: 'center',
-    marginTop: 25, // Biraz daha aralık
+    marginTop: 25,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 3,
-    width: '80%', // Tam genişlik yerine %80
-    alignSelf: 'center', // Ortala
+    width: '80%',
+    alignSelf: 'center',
     borderWidth: 2,
-    borderColor: '#8A2BE2', // Mor çerçeve
+    borderColor: '#8A2BE2',
   },
   loginButtonText: {
-    color: '#8A2BE2', // Mor yazı
-    fontSize: 18, // Biraz daha büyük
+    color: '#8A2BE2',
+    fontSize: 18,
     fontWeight: 'bold',
   },
   bottomButtonsContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-around', // Butonları eşit aralıklarla yerleştir
+    justifyContent: 'space-around',
     marginTop: 25,
     width: '100%',
   },
   bottomButton: {
     paddingVertical: 10,
     paddingHorizontal: 15,
-    backgroundColor: '#FFFFFF', // Beyaz buton 
+    backgroundColor: '#FFFFFF',
     borderRadius: 20,
-    width: '40%', // Giriş yap butonunun yarısı boyutunda
+    width: '40%',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#D8BFD8', // Açık mor çerçeve
+    borderColor: '#D8BFD8',
   },
   bottomButtonText: {
-    color: '#8A2BE2', // Mor yazı rengi
+    color: '#8A2BE2',
     fontSize: 14,
     fontWeight: '600',
   },
@@ -223,7 +232,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     opacity: 0.7,
-    tintColor: '#8A2BE2', // Mor renk
+    tintColor: '#8A2BE2',
   },
 });
 

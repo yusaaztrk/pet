@@ -1,13 +1,32 @@
-import React from 'react';
-import { SafeAreaView } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import LoginScreen from './src/screens/LoginPage';
+import SignupScreen from './src/screens/SingupScreen';
 
-function App(): React.JSX.Element {
+const App: React.FC = () => {
+  const [currentScreen, setCurrentScreen] = useState<string>('Login');
+  
+  // Basit bir navigasyon objesi oluşturuyoruz
+  const navigation = {
+    navigate: (screenName: string) => setCurrentScreen(screenName)
+  };
+  
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <LoginScreen />
-    </SafeAreaView>
+    <View style={styles.container}>
+      {currentScreen === 'Login' ? (
+        <LoginScreen navigation={navigation} />
+      ) : (
+        <SignupScreen navigation={navigation} />
+      )}
+    </View>
   );
-}
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#ffffff'
+  }
+});
 
 export default App;
