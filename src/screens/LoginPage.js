@@ -63,10 +63,10 @@ const LoginScreen = () => {
           </View>
 
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Şifre</Text>
+            <Text style={styles.inputLabel}>Şifrwqdde</Text>
             <TextInput
               style={styles.input}
-              placeholder="Şifrenizi girin"
+              placeholder="beler"
               placeholderTextColor="#888"
               value={password}
               onChangeText={setPassword}
