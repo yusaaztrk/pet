@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import LoginScreen from './src/screens/LoginPage';
-import SignupScreen from './src/screens/SingupScreen';
+import SignupScreen from './src/screens/SignupScreen';
 import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
 
 const App: React.FC = () => {
