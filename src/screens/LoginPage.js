@@ -51,7 +51,7 @@ const LoginScreen = () => {
 
         <View style={styles.formContainer}>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>İSMAİLİ s2m s2mm edim</Text>
+            <Text style={styles.inputLabel}>Giriniz</Text>
             <TextInput
               style={styles.input}
               placeholder="E-posta veya kullanıcı adınızı girin"
@@ -63,7 +63,7 @@ const LoginScreen = () => {
           </View>
 
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Şifrwqdde</Text>
+            <Text style={styles.inputLabel}>Şifre</Text>
             <TextInput
               style={styles.input}
               placeholder="beler"
