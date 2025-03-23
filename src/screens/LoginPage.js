@@ -45,7 +45,7 @@ const LoginScreen = () => {
             style={styles.logo}
             resizeMode="contain"
           />
-          <Text style={styles.appName}>PetPal</Text>
+          <Text style={styles.appName}>PetSev</Text>
           <Text style={styles.tagline}>Evcil dostlarınız için en iyi arkadaş</Text>
         </View>
 
