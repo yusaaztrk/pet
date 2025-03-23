@@ -51,7 +51,7 @@ const LoginScreen = () => {
 
         <View style={styles.formContainer}>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>yusayı s2m</Text>
+            <Text style={styles.inputLabel}>yusayı s2m s2mm edim</Text>
             <TextInput
               style={styles.input}
               placeholder="E-posta veya kullanıcı adınızı girin"
