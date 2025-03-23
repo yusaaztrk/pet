@@ -95,7 +95,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
               style={styles.bottomButton} 
               onPress={handleRegister}
             >
-              <Text style={styles.bottomButtonText}>Kayıt Ol</Text>
+              <Text style={styles.bottomButtonText}>Kayıtt Ol</Text>
             </TouchableOpacity>
             
             <TouchableOpacity 
