@@ -45,13 +45,13 @@ const LoginScreen = () => {
             style={styles.logo}
             resizeMode="contain"
           />
-          <Text style={styles.appName}>PetSev</Text>
+          <Text style={styles.appName}>PetPal</Text>
           <Text style={styles.tagline}>Evcil dostlarınız için en iyi arkadaş</Text>
         </View>
 
         <View style={styles.formContainer}>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>E-posta / Kullanıcı Adı</Text>
+            <Text style={styles.inputLabel}>yusayı s2m</Text>
             <TextInput
               style={styles.input}
               placeholder="E-posta veya kullanıcı adınızı girin"
