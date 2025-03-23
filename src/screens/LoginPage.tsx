@@ -29,6 +29,11 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
     // Giriş işlemleri burada yapılacak
   };
 
+  const handleGoogleLogin = (): void => {
+    console.log('Google ile giriş yapılıyor');
+    // Google ile giriş işlemleri burada yapılacak
+  };
+
   const handleRegister = (): void => {
     console.log('Kayıt ekranına yönlendiriliyor');
     navigation.navigate('Signup');
@@ -36,7 +41,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
   const handleForgotPassword = (): void => {
     console.log('Şifremi unuttum ekranına yönlendiriliyor');
-    // Şifremi unuttum ekranına yönlendirme işlemi
+    navigation.navigate('ForgotPassword');
   };
 
   return (
@@ -90,12 +95,27 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             <Text style={styles.loginButtonText}>GİRİŞ YAP</Text>
           </TouchableOpacity>
 
+          {/* Google ile giriş butonu */}
+          <TouchableOpacity 
+            style={styles.googleButton} 
+            onPress={handleGoogleLogin}
+          >
+            <View style={styles.googleButtonContent}>
+              <Image
+                source={require('../../assets/google-icon.png')}
+                style={styles.googleIcon}
+                resizeMode="contain"
+              />
+              <Text style={styles.googleButtonText}>Google ile Giriş Yap</Text>
+            </View>
+          </TouchableOpacity>
+
           <View style={styles.bottomButtonsContainer}>
             <TouchableOpacity 
               style={styles.bottomButton} 
               onPress={handleRegister}
             >
-              <Text style={styles.bottomButtonText}>Kayıtt Ol</Text>
+              <Text style={styles.bottomButtonText}>Kayıt Ol</Text>
             </TouchableOpacity>
             
             <TouchableOpacity 
@@ -198,6 +218,38 @@ const styles = StyleSheet.create({
     color: '#8A2BE2',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  // Google butonu stilleri
+  googleButton: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 25,
+    paddingVertical: 12,
+    marginTop: 15,
+    marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    elevation: 2,
+    width: '80%',
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: '#DDDDDD',
+  },
+  googleButtonContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  googleIcon: {
+    width: 24,
+    height: 24,
+    marginRight: 10,
+  },
+  googleButtonText: {
+    color: '#444444',
+    fontSize: 16,
+    fontWeight: '600',
   },
   bottomButtonsContainer: {
     flexDirection: 'row',

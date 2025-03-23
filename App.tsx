@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import LoginScreen from './src/screens/LoginPage';
 import SignupScreen from './src/screens/SingupScreen';
+import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
 
 const App: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<string>('Login');
@@ -15,8 +16,10 @@ const App: React.FC = () => {
     <View style={styles.container}>
       {currentScreen === 'Login' ? (
         <LoginScreen navigation={navigation} />
-      ) : (
+      ) : currentScreen === 'Signup' ? (
         <SignupScreen navigation={navigation} />
+      ) : (
+        <ForgotPasswordScreen navigation={navigation} />
       )}
     </View>
   );
