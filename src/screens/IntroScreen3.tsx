@@ -27,7 +27,7 @@ const IntroScreen1: React.FC<Props> = ({ navigation }) => {
       {/* Orta kısımdaki köpek görseli */}
       <View style={styles.dogImageContainer}>
         <Image
-          source={require('../../assets/1Pet.png')} // Bu yolu kendi görselinize göre ayarlayın
+          source={require('../../assets/3Pet.png')} // Bu yolu kendi görselinize göre ayarlayın
           style={styles.dogImage}
           resizeMode="contain"
         />

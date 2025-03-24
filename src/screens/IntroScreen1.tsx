@@ -24,7 +24,7 @@ const IntroScreen1: React.FC<Props> = ({ navigation }) => {
   
   return (
     <SafeAreaView style={styles.container}>
-      {/* Orta kısımdaki köpek görseli */}
+      {/* Orta kısımdaki köpek görseli - daha yukarıda ve daha küçük */}
       <View style={styles.dogImageContainer}>
         <Image
           source={require('../../assets/1Pet.png')} // Bu yolu kendi görselinize göre ayarlayın
@@ -58,21 +58,22 @@ const styles = StyleSheet.create({
   },
   dogImageContainer: {
     position: 'absolute',
-    top: height * 0.15, // Ekranın üst kısmından %15 uzaklıkta
+    top: height * 0.10, // Daha yukarı taşındı (önceden 0.15 idi)
     left: 0,
     right: 0,
     alignItems: 'center',
+    marginTop: -45,
   },
   dogImage: {
-    width: width * 0.8, // Ekran genişliğinin %80'i
-    height: width * 0.8, // Kare görünüm için
+    width: width * 0.65, // Daha küçük boyut (önceden 0.8 idi)
+    height: width * 0.65, // Kare görünüm için
   },
   contentContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 30,
-    marginTop: width * 0.4, // Köpek görselinin altında kalmak için
+    marginTop: width * 0.2, // Köpek görseli küçüldüğü için bunu da azalttım
   },
   title: {
     fontSize: 42,
@@ -93,7 +94,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 3,
   },
   spacer: {
-    height: 50, // Biraz azaltıldı, çünkü köpek görseli ekranın üst kısmında yer alıyor
+    height: 60, 
   },
   button: {
     backgroundColor: '#FFFFFF',
