@@ -42,7 +42,7 @@ const IntroScreen1: React.FC<Props> = ({ navigation }) => {
         
       <View style={styles.contentContainer}>
         <Text style={styles.title}>PetPal</Text>
-        <Text style={styles.subtitle}>Evcil dostlarınız için en iyi arkadaş</Text>
+        <Text style={styles.subtitle}>Evcil dostlarınız için en iyi arkadaş2</Text>
             
         <View style={styles.spacer} />
            
