@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import LoginScreen from './src/screens/LoginPage';
 import SignupScreen from './src/screens/SignupScreen';
+import IntroScreen2 from './src/screens/IntroScreen2';
 import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
+
 
 const App: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<string>('Login');
