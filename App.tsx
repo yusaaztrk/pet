@@ -6,11 +6,11 @@ import IntroScreen1 from './src/screens/IntroScreen1'; // Doğru yolu kullandı�
 const { width, height } = Dimensions.get('window');
 
 const App: React.FC = () => {
-  // Basit yönlendirme fonksiyonu
+  // Navigation nesnesi
   const navigation = {
     navigate: (screenName: string) => {
       console.log(`Navigating to: ${screenName}`);
-      // Bu noktada gerçek yönlendirme işlevselliği ekleyebilirsiniz
+      // Burada gerçek yönlendirme işlevselliği ekleyebilirsiniz
     }
   };
 
@@ -18,7 +18,7 @@ const App: React.FC = () => {
     <View style={styles.container}>
       {/* Arkaplan görseli */}
       <Image
-        source={require('./assets/petbackground1.png')} // Doğru dosya adı ve yolunu kullanın
+        source={require('./assets/petbackground1.jpg')} // JPG uzantısı kullanıldı
         style={styles.backgroundImage}
         resizeMode="cover"
       />
