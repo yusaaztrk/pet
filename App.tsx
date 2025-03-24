@@ -1,28 +1,39 @@
+
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions, Image } from 'react-native';
 import LoginScreen from './src/screens/LoginPage';
 import SignupScreen from './src/screens/SignupScreen';
 import IntroScreen2 from './src/screens/IntroScreen2';
 import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
 
 
+import IntroScreen1 from './src/screens/IntroScreen1'; // Doğru yolu kullandığınızdan emin olun
+
+// Ekran boyutlarını al
+const { width, height } = Dimensions.get('window');
+
+
+
 const App: React.FC = () => {
-  const [currentScreen, setCurrentScreen] = useState<string>('Login');
-  
-  // Basit bir navigasyon objesi oluşturuyoruz
+  // Navigation nesnesi
   const navigation = {
-    navigate: (screenName: string) => setCurrentScreen(screenName)
+    navigate: (screenName: string) => {
+      console.log(`Navigating to: ${screenName}`);
+      // Burada gerçek yönlendirme işlevselliği ekleyebilirsiniz
+    }
   };
-  
+
   return (
     <View style={styles.container}>
-      {currentScreen === 'Login' ? (
-        <LoginScreen navigation={navigation} />
-      ) : currentScreen === 'Signup' ? (
-        <SignupScreen navigation={navigation} />
-      ) : (
-        <ForgotPasswordScreen navigation={navigation} />
-      )}
+      {/* Arkaplan görseli */}
+      <Image
+        source={require('./assets/petbackground1.jpg')} // JPG uzantısı kullanıldı
+        style={styles.backgroundImage}
+        resizeMode="cover"
+     />
+      
+      {/* IntroScreen */}
+      <IntroScreen1 navigation={navigation} />
     </View>
   );
 };
@@ -30,7 +41,14 @@ const App: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ffffff'
+  },
+  backgroundImage: {
+    position: 'absolute',
+    width: width,
+    height: height,
+    top: 0,
+    left: 0,
+    zIndex: -1 // Diğer içeriklerin altında olması için
   }
 });
 
