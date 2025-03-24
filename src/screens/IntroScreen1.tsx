@@ -17,11 +17,11 @@ const IntroScreen1: React.FC<Props> = ({ navigation }) => {
   const handleGetStarted = () => {
     navigation.navigate('Login');
   };
-  
+    
   const handleNext = () => {
-    navigation.navigate('Login'); // veya bir sonraki ekran
+    navigation.navigate('IntroScreen2'); // Login yerine IntroScreen2'ye yönlendirme
   };
-
+  
   return (
     <SafeAreaView style={styles.container}>
       {/* Orta kısımdaki köpek görseli */}
@@ -32,19 +32,18 @@ const IntroScreen1: React.FC<Props> = ({ navigation }) => {
           resizeMode="contain"
         />
       </View>
-      
+        
       <View style={styles.contentContainer}>
         <Text style={styles.title}>PetPal</Text>
         <Text style={styles.subtitle}>Evcil dostlarınız için en iyi arkadaş</Text>
-        
+            
         <View style={styles.spacer} />
-        
-
+           
       </View>
-      
+        
       {/* Sağ alt köşedeki ileri butonu */}
-      <TouchableOpacity 
-        style={styles.nextButton}
+      <TouchableOpacity
+         style={styles.nextButton}
         onPress={handleNext}
       >
         <Text style={styles.nextButtonText}>İLERİ</Text>

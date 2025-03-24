@@ -9,14 +9,14 @@ const BackgroundImage = () => {
     <View style={styles.container}>
       {/* Ana arka plan resmi */}
       <Image
-        source={require('./assets/petbackground2.jpg')}
+        source={require('../../assets/petbackground2.jpg')}
         style={styles.backgroundImage}
         resizeMode="cover"
       />
       
       {/* Orta üstte yer alacak ikinci resim */}
       <Image
-        source={require('./assets/petbackground22.png')}
+        source={require('../../assets/petbackground22.png')}
         style={styles.topImage}
         resizeMode="contain"
       />
