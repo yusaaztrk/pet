@@ -19,7 +19,7 @@ const IntroScreen1: React.FC<Props> = ({ navigation }) => {
   };
     
   const handleNext = () => {
-    navigation.navigate('IntroScreen2'); // Login yerine IntroScreen2'ye yönlendirme
+    navigation.navigate('Login'); // Login yerine IntroScreen2'ye yönlendirme
   };
   
   return (
