@@ -1,9 +1,18 @@
-import React from 'react';
-import { View, StyleSheet, Image, Dimensions } from 'react-native';
+
+import React, { useState } from 'react';
+import { View, StyleSheet, Dimensions, Image } from 'react-native';
+import LoginScreen from './src/screens/LoginPage';
+import SignupScreen from './src/screens/SignupScreen';
+import IntroScreen2 from './src/screens/IntroScreen2';
+import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
+
+
 import IntroScreen1 from './src/screens/IntroScreen1'; // Doğru yolu kullandığınızdan emin olun
 
 // Ekran boyutlarını al
 const { width, height } = Dimensions.get('window');
+
+
 
 const App: React.FC = () => {
   // Navigation nesnesi
@@ -21,7 +30,7 @@ const App: React.FC = () => {
         source={require('./assets/petbackground1.jpg')} // JPG uzantısı kullanıldı
         style={styles.backgroundImage}
         resizeMode="cover"
-      />
+     />
       
       {/* IntroScreen */}
       <IntroScreen1 navigation={navigation} />
