@@ -24,10 +24,17 @@ const IntroScreen1: React.FC<Props> = ({ navigation }) => {
   
   return (
     <SafeAreaView style={styles.container}>
-      {/* Orta kısımdaki köpek görseli - daha yukarıda ve daha küçük */}
+      {/* Arkaplan görseli - her sayfanın kendi içinde */}
+      <Image
+        source={require('../../assets/petbackground1.jpg')}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+      />
+      
+      {/* Orta kısımdaki köpek görseli */}
       <View style={styles.dogImageContainer}>
         <Image
-          source={require('../../assets/1Pet.png')} // Bu yolu kendi görselinize göre ayarlayın
+          source={require('../../assets/1Pet.png')}
           style={styles.dogImage}
           resizeMode="contain"
         />
@@ -43,7 +50,7 @@ const IntroScreen1: React.FC<Props> = ({ navigation }) => {
         
       {/* Sağ alt köşedeki ileri butonu */}
       <TouchableOpacity
-         style={styles.nextButton}
+        style={styles.nextButton}
         onPress={handleNext}
       >
         <Text style={styles.nextButtonText}>İLERİ</Text>
@@ -56,24 +63,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  backgroundImage: {
+    position: 'absolute',
+    width: width,
+    height: height,
+    top: 0,
+    left: 0,
+    zIndex: -1 // Diğer içeriklerin altında olması için
+  },
   dogImageContainer: {
     position: 'absolute',
-    top: height * 0.10, // Daha yukarı taşındı (önceden 0.15 idi)
+    top: height * 0.10,
     left: 0,
     right: 0,
     alignItems: 'center',
     marginTop: -45,
   },
   dogImage: {
-    width: width * 0.65, // Daha küçük boyut (önceden 0.8 idi)
-    height: width * 0.65, // Kare görünüm için
+    width: width * 0.65,
+    height: width * 0.65,
   },
   contentContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 30,
-    marginTop: width * 0.2, // Köpek görseli küçüldüğü için bunu da azalttım
+    marginTop: width * 0.2,
   },
   title: {
     fontSize: 42,
@@ -110,7 +125,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#3949AB', // Görüntüdeki lacivert renge yakın bir renk
+    color: '#3949AB',
   },
   nextButton: {
     position: 'absolute',

@@ -17,33 +17,39 @@ const IntroScreen1: React.FC<Props> = ({ navigation }) => {
   const handleGetStarted = () => {
     navigation.navigate('Login');
   };
-  
+    
   const handleNext = () => {
-    navigation.navigate('Login'); // veya bir sonraki ekran
+    navigation.navigate('IntroScreen2'); // Login yerine IntroScreen2'ye yönlendirme
   };
-
+  
   return (
     <SafeAreaView style={styles.container}>
+      {/* Arkaplan görseli - her sayfanın kendi içinde */}
+      <Image
+        source={require('../../assets/petbackground3.jpg')}
+        style={styles.backgroundImage}
+        resizeMode="cover"
+      />
+      
       {/* Orta kısımdaki köpek görseli */}
       <View style={styles.dogImageContainer}>
         <Image
-          source={require('../../assets/3Pet.png')} // Bu yolu kendi görselinize göre ayarlayın
+          source={require('../../assets/3Pet.png')}
           style={styles.dogImage}
           resizeMode="contain"
         />
       </View>
-      
+        
       <View style={styles.contentContainer}>
         <Text style={styles.title}>PetPal</Text>
         <Text style={styles.subtitle}>Evcil dostlarınız için en iyi arkadaş</Text>
-        
+            
         <View style={styles.spacer} />
-        
-
+           
       </View>
-      
+        
       {/* Sağ alt köşedeki ileri butonu */}
-      <TouchableOpacity 
+      <TouchableOpacity
         style={styles.nextButton}
         onPress={handleNext}
       >
@@ -57,23 +63,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  backgroundImage: {
+    position: 'absolute',
+    width: width,
+    height: height,
+    top: 0,
+    left: 0,
+    zIndex: -1 // Diğer içeriklerin altında olması için
+  },
   dogImageContainer: {
     position: 'absolute',
-    top: height * 0.15, // Ekranın üst kısmından %15 uzaklıkta
+    top: height * 0.10,
     left: 0,
     right: 0,
     alignItems: 'center',
+    marginTop: -45,
   },
   dogImage: {
-    width: width * 0.8, // Ekran genişliğinin %80'i
-    height: width * 0.8, // Kare görünüm için
+    width: width * 0.65,
+    height: width * 0.65,
   },
   contentContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 30,
-    marginTop: width * 0.4, // Köpek görselinin altında kalmak için
+    marginTop: width * 0.2,
   },
   title: {
     fontSize: 42,
@@ -94,7 +109,7 @@ const styles = StyleSheet.create({
     textShadowRadius: 3,
   },
   spacer: {
-    height: 50, // Biraz azaltıldı, çünkü köpek görseli ekranın üst kısmında yer alıyor
+    height: 60, 
   },
   button: {
     backgroundColor: '#FFFFFF',
@@ -110,7 +125,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#3949AB', // Görüntüdeki lacivert renge yakın bir renk
+    color: '#3949AB',
   },
   nextButton: {
     position: 'absolute',
