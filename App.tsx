@@ -39,8 +39,10 @@ const App: React.FC = () => {
         return <SignupScreen navigation={navigation} />;
       case 'ForgotPassword':
         return <ForgotPasswordScreen navigation={navigation} />;
+      case 'Homepage':
+        return <HomePage navigation={navigation} />;
       default:
-        return <IntroScreen1 navigation={navigation} />;
+        return <HomePage navigation={navigation} />;
     }
   };
 
