@@ -6,10 +6,11 @@ import IntroScreen2 from './src/screens/IntroScreen2';
 import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
 import IntroScreen1 from './src/screens/IntroScreen1';
 import IntroScreen3 from './src/screens/IntroScreen3';
+import HomePage from './src/screens/Homepage';
 
 const App: React.FC = () => {
   // Aktif ekranı tutmak için state ekliyoruz
-  const [currentScreen, setCurrentScreen] = useState<string>('IntroScreen1');
+  const [currentScreen, setCurrentScreen] = useState<string>('Homepage');
 
   // Navigation nesnesi - navigate fonksiyonu şimdi gerçekten ekranı değiştiriyor
   const navigation = {
@@ -19,7 +20,7 @@ const App: React.FC = () => {
     },
     goBack: () => {
       // Basit bir geri gitme fonksiyonu (ihtiyaca göre geliştirebilirsiniz)
-      setCurrentScreen('IntroScreen1');
+      setCurrentScreen('Homepage');
     }
   };
 
