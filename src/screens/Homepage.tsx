@@ -20,24 +20,23 @@ const HomePage: React.FC = () => {
 
           switch (route.name) {
             case 'Market':
-              iconName = focused ? 'store' : 'store-outline';
+              iconName = focused ? 'shopping' : 'shopping-outline';
               break;
             case 'Sahiplendir':
               iconName = focused ? 'heart' : 'heart-outline';
               break;
             case 'Eşleştir':
-              iconName = focused ? 'account-group' : 'account-group-outline';
+              iconName = focused ? 'account-multiple' : 'account-multiple-outline';
               break;
             case 'Mesajlar':
-              iconName = focused ? 'message' : 'message-outline';
+              iconName = focused ? 'chat' : 'chat-outline';
               break;
             case 'Ayarlar':
               iconName = focused ? 'cog' : 'cog-outline';
               break;
             default:
-              iconName = 'alert-circle-outline';
+              iconName = 'help-circle-outline';
           }
-
           return (
             <MaterialCommunityIcons name={iconName} size={size} color={color} />
           );
