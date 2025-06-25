@@ -1,3 +1,4 @@
+// src/screens/LoginPage.tsx
 import React, { useState } from 'react';
 import {
   View,
@@ -9,9 +10,11 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Alert,
+  ActivityIndicator,
 } from 'react-native';
+import { useAuth } from '../context/AuthContext';
 
-// Basit navigasyon prop tipini tanımlama
 type NavigationProp = {
   navigate: (screenName: string) => void;
 };
@@ -21,26 +24,57 @@ type Props = {
 };
 
 const LoginScreen: React.FC<Props> = ({ navigation }) => {
-  const [username, setUsername] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  
+  const { signIn, signInWithGoogle } = useAuth();
 
-  const handleLogin = (): void => {
-    console.log('Giriş yapılıyor:', username, password);
-    // Giriş işlemleri burada yapılacak
+  const handleLogin = async (): void => {
+    if (!email || !password) {
+      Alert.alert('Hata', 'Lütfen e-posta ve şifrenizi girin.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const result = await signIn(email, password);
+      
+      if (result.success) {
+        // Başarılı giriş - AuthContext otomatik olarak yönlendirecek
+        console.log('Başarılı giriş');
+      } else {
+        Alert.alert('Giriş Hatası', result.error || 'Giriş yapılamadı');
+      }
+    } catch (error) {
+      Alert.alert('Hata', 'Beklenmeyen bir hata oluştu');
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleGoogleLogin = (): void => {
-    console.log('Google ile giriş yapılıyor');
-    // Google ile giriş işlemleri burada yapılacak
+  const handleGoogleLogin = async (): void => {
+    setLoading(true);
+    try {
+      const result = await signInWithGoogle();
+      
+      if (result.success) {
+        console.log('Google ile başarılı giriş');
+      } else {
+        Alert.alert('Google Giriş Hatası', result.error || 'Google ile giriş yapılamadı');
+      }
+    } catch (error) {
+      Alert.alert('Hata', 'Google girişinde hata oluştu');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleRegister = (): void => {
-    console.log('Kayıt ekranına yönlendiriliyor');
     navigation.navigate('Signup');
   };
 
   const handleForgotPassword = (): void => {
-    console.log('Şifremi unuttum ekranına yönlendiriliyor');
     navigation.navigate('ForgotPassword');
   };
 
@@ -65,14 +99,16 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
 
         <View style={styles.formContainer}>
           <View style={styles.inputContainer}>
-            <Text style={styles.inputLabel}>Kullanıcı Adı</Text>
+            <Text style={styles.inputLabel}>E-posta</Text>
             <TextInput
               style={styles.input}
-              placeholder="E-posta veya kullanıcı adınızı girin"
+              placeholder="E-posta adresinizi girin"
               placeholderTextColor="#888"
-              value={username}
-              onChangeText={setUsername}
+              value={email}
+              onChangeText={setEmail}
               autoCapitalize="none"
+              keyboardType="email-address"
+              autoComplete="email"
             />
           </View>
 
@@ -85,20 +121,27 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
               value={password}
               onChangeText={setPassword}
               secureTextEntry
+              autoComplete="password"
             />
           </View>
 
           <TouchableOpacity 
-            style={styles.loginButton} 
+            style={[styles.loginButton, loading && styles.disabledButton]} 
             onPress={handleLogin}
+            disabled={loading}
           >
-            <Text style={styles.loginButtonText}>GİRİŞ YAP</Text>
+            {loading ? (
+              <ActivityIndicator color="#8A2BE2" />
+            ) : (
+              <Text style={styles.loginButtonText}>GİRİŞ YAP</Text>
+            )}
           </TouchableOpacity>
 
           {/* Google ile giriş butonu */}
           <TouchableOpacity 
-            style={styles.googleButton} 
+            style={[styles.googleButton, loading && styles.disabledButton]} 
             onPress={handleGoogleLogin}
+            disabled={loading}
           >
             <View style={styles.googleButtonContent}>
               <Image
@@ -114,6 +157,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             <TouchableOpacity 
               style={styles.bottomButton} 
               onPress={handleRegister}
+              disabled={loading}
             >
               <Text style={styles.bottomButtonText}>Kayıt Ol</Text>
             </TouchableOpacity>
@@ -121,6 +165,7 @@ const LoginScreen: React.FC<Props> = ({ navigation }) => {
             <TouchableOpacity 
               style={styles.bottomButton} 
               onPress={handleForgotPassword}
+              disabled={loading}
             >
               <Text style={styles.bottomButtonText}>Şifremi Unuttum</Text>
             </TouchableOpacity>
@@ -163,7 +208,7 @@ const styles = StyleSheet.create({
   appName: {
     fontSize: 32,
     fontWeight: 'bold',
-    color: '#8A2BE2', // Mor renk
+    color: '#8A2BE2',
     marginBottom: 8,
   },
   tagline: {
@@ -219,7 +264,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
   },
-  // Google butonu stilleri
   googleButton: {
     backgroundColor: '#FFFFFF',
     borderRadius: 25,
@@ -285,6 +329,9 @@ const styles = StyleSheet.create({
     height: 40,
     opacity: 0.7,
     tintColor: '#8A2BE2',
+  },
+  disabledButton: {
+    opacity: 0.6,
   },
 });
 

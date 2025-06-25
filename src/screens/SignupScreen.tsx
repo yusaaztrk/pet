@@ -10,9 +10,10 @@ import {
   Platform,
   ScrollView,
   Alert,
+  ActivityIndicator,
 } from 'react-native';
+import { useAuth } from '../context/AuthContext';
 
-// Basit navigasyon prop tipini tanımlama
 type NavigationProp = {
   navigate: (screenName: string) => void;
 };
@@ -26,9 +27,12 @@ const SignupScreen: React.FC<Props> = ({ navigation }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [loading, setLoading] = useState<boolean>(false);
+  
+  const { signUp } = useAuth();
 
-  const handleSignup = (): void => {
-    // Basit doğrulama
+  const handleSignup = async (): Promise<void> => {
+    // Doğrulamalar
     if (!fullName || !email || !password || !confirmPassword) {
       Alert.alert('Hata', 'Lütfen tüm alanları doldurunuz.');
       return;
@@ -39,19 +43,34 @@ const SignupScreen: React.FC<Props> = ({ navigation }) => {
       return;
     }
     
-    console.log('Kayıt yapılıyor:', fullName, email, password);
-    // Kayıt işlemleri burada yapılacak
-    // Başarılı kayıt sonrası giriş ekranına yönlendirme
-    Alert.alert(
-      'Başarılı',
-      'Kayıt işleminiz başarıyla tamamlandı.',
-      [
-        {
-          text: 'Tamam',
-          onPress: () => navigation.navigate('Login')
-        }
-      ]
-    );
+    if (password.length < 6) {
+      Alert.alert('Hata', 'Şifre en az 6 karakter olmalıdır.');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const result = await signUp(email, password, fullName);
+      
+      if (result.success) {
+        Alert.alert(
+          'Başarılı',
+          'Kayıt işleminiz başarıyla tamamlandı.',
+          [
+            {
+              text: 'Tamam',
+              onPress: () => navigation.navigate('Login')
+            }
+          ]
+        );
+      } else {
+        Alert.alert('Hata', result.error || 'Kayıt işlemi sırasında bir hata oluştu');
+      }
+    } catch (error) {
+      Alert.alert('Hata', 'Beklenmeyen bir hata oluştu');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleBackToLogin = (): void => {
@@ -86,6 +105,7 @@ const SignupScreen: React.FC<Props> = ({ navigation }) => {
               placeholderTextColor="#888"
               value={fullName}
               onChangeText={setFullName}
+              autoCapitalize="words"
             />
           </View>
 
@@ -99,6 +119,7 @@ const SignupScreen: React.FC<Props> = ({ navigation }) => {
               onChangeText={setEmail}
               keyboardType="email-address"
               autoCapitalize="none"
+              autoComplete="email"
             />
           </View>
 
@@ -106,11 +127,12 @@ const SignupScreen: React.FC<Props> = ({ navigation }) => {
             <Text style={styles.inputLabel}>Şifre</Text>
             <TextInput
               style={styles.input}
-              placeholder="Şifrenizi girin"
+              placeholder="Şifrenizi girin (en az 6 karakter)"
               placeholderTextColor="#888"
               value={password}
               onChangeText={setPassword}
               secureTextEntry
+              autoComplete="password"
             />
           </View>
 
@@ -123,19 +145,26 @@ const SignupScreen: React.FC<Props> = ({ navigation }) => {
               value={confirmPassword}
               onChangeText={setConfirmPassword}
               secureTextEntry
+              autoComplete="password"
             />
           </View>
 
           <TouchableOpacity 
-            style={styles.signupButton} 
+            style={[styles.signupButton, loading && styles.disabledButton]} 
             onPress={handleSignup}
+            disabled={loading}
           >
-            <Text style={styles.signupButtonText}>KAYIT OL</Text>
+            {loading ? (
+              <ActivityIndicator color="#FFFFFF" />
+            ) : (
+              <Text style={styles.signupButtonText}>KAYIT OL</Text>
+            )}
           </TouchableOpacity>
 
           <TouchableOpacity 
             style={styles.backButton} 
             onPress={handleBackToLogin}
+            disabled={loading}
           >
             <Text style={styles.backButtonText}>Giriş Ekranına Dön</Text>
           </TouchableOpacity>
@@ -177,7 +206,7 @@ const styles = StyleSheet.create({
   appName: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#8A2BE2', // Mor renk
+    color: '#8A2BE2',
     marginBottom: 8,
   },
   tagline: {
@@ -213,7 +242,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   signupButton: {
-    backgroundColor: '#8A2BE2', // Mor buton
+    backgroundColor: '#8A2BE2',
     borderRadius: 25,
     paddingVertical: 15,
     alignItems: 'center',
@@ -227,7 +256,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   signupButtonText: {
-    color: '#FFFFFF', // Beyaz yazı
+    color: '#FFFFFF',
     fontSize: 18,
     fontWeight: 'bold',
   },
@@ -256,6 +285,9 @@ const styles = StyleSheet.create({
     height: 40,
     opacity: 0.7,
     tintColor: '#8A2BE2',
+  },
+  disabledButton: {
+    opacity: 0.7,
   },
 });
 
