@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator();
 const App: React.FC = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Homepage" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="HomePage" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="IntroScreen1" component={IntroScreen1} />
         <Stack.Screen name="IntroScreen2" component={IntroScreen2} />
         <Stack.Screen name="IntroScreen3" component={IntroScreen3} />
