@@ -1,15 +1,15 @@
 // src/context/AuthContext.tsx
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
-import FirebaseAuthService, { AuthUser } from '../services/firebase';
+import firebaseAuthService, { AuthUser, AuthResult } from '../services/firebase';
 
 interface AuthContextType {
   user: AuthUser | null;
   loading: boolean;
-  signIn: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
-  signUp: (email: string, password: string, displayName?: string) => Promise<{ success: boolean; error?: string }>;
-  signInWithGoogle: () => Promise<{ success: boolean; error?: string }>;
-  resetPassword: (email: string) => Promise<{ success: boolean; error?: string }>;
-  signOut: () => Promise<void>;
+  signIn: (email: string, password: string) => Promise<AuthResult>;
+  signUp: (email: string, password: string, displayName?: string) => Promise<AuthResult>;
+  signInWithGoogle: () => Promise<AuthResult>;
+  resetPassword: (email: string) => Promise<AuthResult>;
+  signOut: () => Promise<AuthResult>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -23,36 +23,72 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = FirebaseAuthService.onAuthStateChanged((authUser) => {
+    const unsubscribe = firebaseAuthService.onAuthStateChanged((authUser) => {
       setUser(authUser);
       setLoading(false);
     });
 
-    return unsubscribe;
+    return unsubscribe; // Cleanup function
   }, []);
 
-  const signIn = async (email: string, password: string) => {
-    const result = await FirebaseAuthService.signInWithEmail(email, password);
-    return { success: result.success, error: result.error };
+  const signIn = async (email: string, password: string): Promise<AuthResult> => {
+    try {
+      const result = await firebaseAuthService.signInWithEmail(email, password);
+      return result;
+    } catch (error) {
+      return { 
+        success: false, 
+        error: 'Beklenmeyen bir hata oluştu' 
+      };
+    }
   };
 
-  const signUp = async (email: string, password: string, displayName?: string) => {
-    const result = await FirebaseAuthService.signUpWithEmail(email, password, displayName);
-    return { success: result.success, error: result.error };
+  const signUp = async (email: string, password: string, displayName?: string): Promise<AuthResult> => {
+    try {
+      const result = await firebaseAuthService.signUpWithEmail(email, password, displayName);
+      return result;
+    } catch (error) {
+      return { 
+        success: false, 
+        error: 'Beklenmeyen bir hata oluştu' 
+      };
+    }
   };
 
-  const signInWithGoogle = async () => {
-    const result = await FirebaseAuthService.signInWithGoogle();
-    return { success: result.success, error: result.error };
+  const signInWithGoogle = async (): Promise<AuthResult> => {
+    try {
+      const result = await firebaseAuthService.signInWithGoogle();
+      return result;
+    } catch (error) {
+      return { 
+        success: false, 
+        error: 'Google girişinde hata oluştu' 
+      };
+    }
   };
 
-  const resetPassword = async (email: string) => {
-    const result = await FirebaseAuthService.resetPassword(email);
-    return { success: result.success, error: result.error };
+  const resetPassword = async (email: string): Promise<AuthResult> => {
+    try {
+      const result = await firebaseAuthService.resetPassword(email);
+      return result;
+    } catch (error) {
+      return { 
+        success: false, 
+        error: 'Şifre sıfırlama hatası' 
+      };
+    }
   };
 
-  const signOut = async () => {
-    await FirebaseAuthService.signOut();
+  const signOut = async (): Promise<AuthResult> => {
+    try {
+      const result = await firebaseAuthService.signOut();
+      return result;
+    } catch (error) {
+      return { 
+        success: false, 
+        error: 'Çıkış yapılamadı' 
+      };
+    }
   };
 
   const value: AuthContextType = {

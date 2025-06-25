@@ -1,10 +1,13 @@
 // App.tsx
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import firebaseAuthService from './src/services/firebase';
 
+// AuthContext'ten useAuth ve AuthProvider'ı import et
+import { AuthProvider, useAuth } from './src/context/AuthContext';
+
+// Screens
 import IntroScreen1 from './src/screens/IntroScreen1';
 import IntroScreen2 from './src/screens/IntroScreen2';
 import IntroScreen3 from './src/screens/IntroScreen3';
@@ -13,29 +16,19 @@ import SignupScreen from './src/screens/SignupScreen';
 import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
 import Homepage from './src/screens/Homepage';
 
+// Navigation Tabs
 import MatchTabs from './src/screens/navigation/MatchTabs';
 import MarketTabs from './src/screens/navigation/MarketTabs';
 import AdoptionTabs from './src/screens/navigation/AdoptionTabs';
 
 const Stack = createNativeStackNavigator();
 
-const App: React.FC = () => {
-  const [initializing, setInitializing] = useState(true);
-  const [user, setUser] = useState<firebaseAuthService.AuthUser | null>(null);
+// AppNavigator - useAuth hook'unu AuthProvider içinde kullanır
+const AppNavigator: React.FC = () => {
+  const { user, loading } = useAuth();
 
-  // Kullanıcı durum değişikliklerini dinle
-  useEffect(() => {
-    const unsubscribe = firebaseAuthService.onAuthStateChanged((authUser) => {
-      setUser(authUser);
-      if (initializing) {
-        setInitializing(false);
-      }
-    });
-
-    return unsubscribe; // Cleanup fonksiyonu
-  }, [initializing]);
-
-  if (initializing) {
+  // Loading state'inde gösterilecek ekran
+  if (loading) {
     return (
       <View style={styles.loadingContainer}>
         <ActivityIndicator size="large" color="#8A2BE2" />
@@ -67,6 +60,15 @@ const App: React.FC = () => {
         )}
       </Stack.Navigator>
     </NavigationContainer>
+  );
+};
+
+// Ana App component - AuthProvider ile sarmallar
+const App: React.FC = () => {
+  return (
+    <AuthProvider>
+      <AppNavigator />
+    </AuthProvider>
   );
 };
 
