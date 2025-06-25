@@ -8,7 +8,11 @@ import IntroScreen3 from './src/screens/IntroScreen3';
 import LoginScreen from './src/screens/LoginPage';
 import SignupScreen from './src/screens/SignupScreen';
 import ForgotPasswordScreen from './src/screens/ForgotPasswordScreen';
-import HomePage from './src/screens/Homepage';
+import Homepage from './src/screens/Homepage';
+
+import MatchTabs from './src/screens/navigation/MatchTabs';
+import MarketTabs from './src/screens/navigation/MarketTabs';
+import AdoptionTabs from './src/screens/navigation/AdoptionTabs';
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +26,12 @@ const App: React.FC = () => {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="Signup" component={SignupScreen} />
         <Stack.Screen name="ForgotPassword" component={ForgotPasswordScreen} />
-        <Stack.Screen name="Homepage" component={HomePage} />
+        <Stack.Screen name="Homepage" component={Homepage} />
+
+        {/* Bu kısımlar eklendi */}
+        <Stack.Screen name="MatchTabs" component={MatchTabs} />
+        <Stack.Screen name="MarketTabs" component={MarketTabs} />
+        <Stack.Screen name="AdoptionTabs" component={AdoptionTabs} />
       </Stack.Navigator>
     </NavigationContainer>
   );
